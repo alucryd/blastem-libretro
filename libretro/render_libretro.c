@@ -597,8 +597,18 @@ RETRO_API bool retro_serialize(void *data, size_t size) { return false; }
 RETRO_API bool retro_unserialize(const void *data, size_t size) { return false; }
 RETRO_API void retro_cheat_reset(void) { }
 RETRO_API void retro_cheat_set(unsigned index, bool enabled, const char *code) { }
-RETRO_API void *retro_get_memory_data(unsigned id) { return NULL; }
-RETRO_API size_t retro_get_memory_size(unsigned id) { return 0; }
+RETRO_API void *retro_get_memory_data(unsigned id) 
+{
+   if ( id == RETRO_MEMORY_SYSTEM_RAM )
+      return ram;
+   return NULL; 
+}
+RETRO_API size_t retro_get_memory_size(unsigned id) 
+{
+   if ( id == RETRO_MEMORY_SYSTEM_RAM )
+      return RAM_WORDS*2;
+   return 0; 
+}
 
 void force_no_terminal(void)
 {
